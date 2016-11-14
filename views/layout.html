@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/foundation.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <!-- Font température -->
+    <link href="/static/css/weather-icons/css/weather-icons.min.css" rel="stylesheet" type="text/css">
+
+    <title>{{title or 'No title'}}</title>
+</head>
+
+<body>
+
+<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+    <button class="menu-icon" type="button" data-toggle></button>
+    <div class="title-bar-title">Programmateur</div>
+</div>
+
+<div class="top-bar" id="example-menu">
+    <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+            <li class="menu-text">Programmateur</li>
+            <li><a href="{{app.get_url('index')}}">Accueil</a></li>
+            <li>
+                <a href="#">Programmation</a>
+                <ul class="menu vertical">
+                    <li><a href="{{app.get_url('plannings')}}">Jour</a></li>
+                    <li><a href="{{app.get_url('cycles')}}">Cycle</a></li>
+                    <li><a href="{{app.get_url('affectation_cycles')}}">Annuel</a></li>
+                    <li><a href="#">Config</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Historique</a>
+                <ul class="menu vertical">
+                    <li><a href="#">Jour</a></li>
+                    <li><a href="#">Cycle</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script src="/static/js/vendor/jquery.js"></script>
+<script src="/static/js/vendor/what-input.js"></script>
+<script src="/static/js/vendor/foundation.js"></script>
+<script src="/static/js/app.js"></script>
+
+<div class="row">
+    %if defined('parent_url'):
+    <a href="{{parent_url}}">&lt;&lt;&lt; Back</a><br/>
+    %end
+    %include
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+%rebase layout title='toto', parent_url=app.get_url('user_list')
+
+<h1>Create New User</h1>
+
+%def render_field(field, desc=None, **kwargs):
+    <div class="row">
+        <div class="small-3 columns">
+   <dt>{{!field.label}}</dt>
+            </div>
+        <div class="small-9 columns">
+   <dd>{{!field(**kwargs)}}
+   %if desc:
+      {{!desc}}
+   %end
+   %if field.errors:
+       <div class="alert callout">
+      <ul class=errors>
+      %for error in field.errors:
+         <li>{{ error }}</li>
+      %end
+      </ul>
+       </div>
+   %end
+   </dd>
+            </div>
+        </div>
+%end
+
+<form method="POST">
+   <dl>
+      %render_field(form.name, '(4-20 characters)</p>')
+      %render_field(form.full_name, size=60)
+      %render_field(form.email_address, size=40)
+      %render_field(form.password)
+      %render_field(form.confirm)
+   </dl>
+   <p><input type=submit value="Enregistrer">
+</form>

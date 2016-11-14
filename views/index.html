@@ -1,0 +1,212 @@
+%rebase layout title='Programmateur'
+
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Accueil</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="large-4 medium-4 columns">
+        <!-- Température salon -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <i class="wi wi-thermometer fa-4x"></i>
+                    </div>
+                    <div class="small-9 columns text-right">
+                        <div id="tempin" class="huge">25 °C</div>
+                        <div>Salon</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                   <div class="row">
+                    <div class="small-12 columns"><br>
+                        <span id="heure">&nbsp;</span><br>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="large-4 medium-4 columns">
+        <!-- Température extérieure -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <i class="wi wi-thermometer fa-4x"></i>
+                    </div>
+                    <div class="small-9 columns text-right">
+                        <div id="tempout" class="huge">25 °C</div>
+                        <div>Extérieur</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="small-12 columns"><br>
+                        <span id="heureout">&nbsp;</span><br>&nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Consigne -->
+    <div class="large-4 medium-4 columns">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <i class="wi wi-time-5 fa-4x"></i>
+                    </div>
+                    <div class="small-9 columns text-right">
+                        <div id="tempcons" class="huge">20 °C</div>
+                        <div>Consigne</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="small-12 columns">
+                        Fin de la plage :<span id="heureFin">99:99</span>
+                    </div>
+                    <div class="small-12 columns">
+                        <a id="cycleAnchor" href="{{app.get_url('update_cycle', id=1)}}">cycle.libelle</a>
+                    </div>
+                    <div class="small-12 columns">
+                        <i><a id="plannningJourAnchor" href="./planning_jour">[planningjour.libelle]</a></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-4 medium-4 columns">
+        <!-- Mode-->
+        <div id="panel_active" class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <i class="wi wi-lightning fa-4x"></i>
+                    </div>
+                    <div class="small-9 columns text-right">
+                        <!-- <div class="huge">Mode</div>-->
+                        <div id="etat" class="huge">N/A</div>
+                        <div id="changement_etat">N/A</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+
+                    <div class="small-7 columns">Automatique</div>
+                    <div class="small-5 columns">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="systeme" checked>
+                            <label class="onoffswitch-label" for="systeme">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div> <!-- row-->
+                <div class="row">
+                    <div class="small-7 columns">
+                        Marche
+                    </div>
+                    <div class="small-5 columns">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="marche" checked>
+                            <label class="onoffswitch-label" for="marche">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div><!-- row-->
+            </div>
+        </div><!-- /.panel_active -->
+    </div>
+
+
+</div>
+<div class="large-4 medium-4 columns">
+</div>
+<div class="large-4 medium-4 columns">
+</div>
+</div>
+
+
+<script type="text/javascript">
+		jQuery(document).ready(function(){
+		        //alert("Test WebSocket")
+                var ws = new WebSocket("ws://192.168.1.3:8080/realtime/mygroup");
+                ws.onopen = function() {
+                    //alert('ws open');
+                };
+                ws.onmessage = function (evt) {
+                        var message = JSON.parse(evt.data);
+
+                        if ("salon_deg" in message)
+                        {
+	                        var d = new Date();
+    	    				heure.innerHTML = d.toLocaleString();
+                         	tempin.innerHTML = message.salon_deg;
+                        }
+                        if ("consigne_deg" in message)
+                        {
+                        	tempcons.innerHTML = message.consigne_deg;
+                        }
+                        if ("planningJour" in message)
+                        {
+                        	plannningJourAnchor.innerHTML = message.planningJour;
+                        }
+                        if ("cycle" in message)
+                        {
+                        	cycleAnchor.innerHTML = message.cycle;
+                        }
+                        if ("finPlage" in message)
+                        {
+                        	heureFin.innerHTML = message.finPlage;
+                        }
+                             if ("exterieur_deg" in message)
+                        {
+                            var d = new Date();
+    	    				heureout.innerHTML = d.toLocaleString();
+                         	tempout.innerHTML = message.exterieur_deg;
+                        }
+                        if ("active" in message)
+                        {
+                        	if (message.active)
+                        	{
+                        		etat.innerHTML = 'Actif';
+                        		panel_active.className = 'panel panel-red';
+                        	}
+                        	else
+                        	{
+                        		etat.innerHTML= 'Inactif';
+                        		panel_active.className = 'panel panel-primary';
+                        	}
+                        }
+                        if ("active_date" in message)
+                        {
+                        	changement_etat.innerHTML = message.active_date
+                        }
+                        if ("system" in message)
+                        {
+                        	$("#systeme").prop('checked', message.system);
+                        }
+                        if ("marche" in message)
+                        {
+                        	$("#marche").prop('checked', message.marche);
+                        }
+                };
+            });
+
+
+</script>

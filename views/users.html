@@ -1,0 +1,9 @@
+%rebase layout title='New Rotation', parent_url=app.get_url('index')
+
+<h1>Users</h1>
+
+%for user in users:
+   <a href="{{app.get_url('edit_user', username=user.name)}}">{{user.full_name}}</a>
+   <a href="{{app.get_url('delete_user', username=user.name)}}">delete</a>
+   <br />
+%end
