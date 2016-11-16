@@ -1,10 +1,47 @@
 %rebase layout title='Programmateur'
 
+
+<div class="w3-container">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <div id="tempout"><h5>25 °C</h5></div>
+        </header>
+
+        <div class="w3-container w3-light-grey">
+            <center>
+
+                    <div id="tempcons"><h1 class="w3-text-shadow">20 °</h1></div>
+
+                <p>
+                    <i class="fa fa-thermometer-half">
+                        <div id="tempin"><h1 class="w3-text-shadow w3-text-white">25 °</h1></div>
+                    </i>
+                </p>
+            </center>
+        </div>
+
+        <footer class="w3-container w3-blue">
+            <div class="small-12 columns">
+                Fin de la plage :<span id="heureFin">99:99</span>
+            </div>
+            <div class="small-12 columns">
+                <a id="cycleAnchor" href="{{app.get_url('update_cycle', id=1)}}">cycle.libelle</a>
+            </div>
+            <div class="small-12 columns">
+                <i><a id="plannningJourAnchor" href="./planning_jour">[planningjour.libelle]</a></i>
+            </div>
+
+        </footer>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="large-12 columns">
         <h1>Accueil</h1>
     </div>
 </div>
+
 <div class="row">
     <div class="large-4 medium-4 columns">
         <!-- Température salon -->
@@ -15,13 +52,13 @@
                         <i class="wi wi-thermometer fa-4x"></i>
                     </div>
                     <div class="small-9 columns text-right">
-                        <div id="tempin" class="huge">25 °C</div>
+                        <div id="oldtempin" class="huge">25 °C</div>
                         <div>Salon</div>
                     </div>
                 </div>
             </div>
             <div class="panel-footer">
-                   <div class="row">
+                <div class="row">
                     <div class="small-12 columns"><br>
                         <span id="heure">&nbsp;</span><br>&nbsp;
                     </div>
@@ -39,7 +76,7 @@
                         <i class="wi wi-thermometer fa-4x"></i>
                     </div>
                     <div class="small-9 columns text-right">
-                        <div id="tempout" class="huge">25 °C</div>
+                        <div id="oldtempout" class="huge">25 °C</div>
                         <div>Extérieur</div>
                     </div>
                 </div>
@@ -62,7 +99,7 @@
                         <i class="wi wi-time-5 fa-4x"></i>
                     </div>
                     <div class="small-9 columns text-right">
-                        <div id="tempcons" class="huge">20 °C</div>
+                        <div id="oldtempcons" class="huge">20 °C</div>
                         <div>Consigne</div>
                     </div>
                 </div>
@@ -70,13 +107,13 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="small-12 columns">
-                        Fin de la plage :<span id="heureFin">99:99</span>
+                        Fin de la plage :<span id="oldHheureFin">99:99</span>
                     </div>
                     <div class="small-12 columns">
-                        <a id="cycleAnchor" href="{{app.get_url('update_cycle', id=1)}}">cycle.libelle</a>
+                        <a id="oldcycleAnchor" href="{{app.get_url('update_cycle', id=1)}}">cycle.libelle</a>
                     </div>
                     <div class="small-12 columns">
-                        <i><a id="plannningJourAnchor" href="./planning_jour">[planningjour.libelle]</a></i>
+                        <i><a id="oldplannningJourAnchor" href="./planning_jour">[planningjour.libelle]</a></i>
                     </div>
                 </div>
             </div>
@@ -207,6 +244,8 @@
                         }
                 };
             });
+
+
 
 
 </script>
