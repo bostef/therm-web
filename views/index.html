@@ -7,16 +7,16 @@
             <div id="tempout"><h5>25 °C</h5></div>
         </header>
 
-        <div class="w3-container w3-light-grey">
+        <div class="w3-container w3-light-grey w3-xxxlarge">
             <center>
-
-                    <div id="tempcons"><h1 class="w3-text-shadow">20 °</h1></div>
-
-                <p>
-                    <i class="fa fa-thermometer-half">
-                        <div id="tempin"><h1 class="w3-text-shadow w3-text-white">25 °</h1></div>
-                    </i>
-                </p>
+                <div class="w3-row">
+                <span class="fa fa-thermometer"></span>
+                <span id="tempcons" class="w3-text-shadow">20 °</span>
+                </div>
+                <div class="w3-row w3-text-white">
+                 <span class="fa fa-thermometer-half"></span>
+                 <span id="tempin" class="w3-text-shadow">25 °</span>
+                </div>
             </center>
         </div>
 
@@ -244,6 +244,8 @@
                         }
                 };
             });
+
+
 
 
 
